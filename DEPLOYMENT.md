@@ -143,4 +143,4 @@ Your Maine Sky Pixels website is now live and ready to serve customers!
 **Contact Information:**
 - Phone: (207) 200-1232
 - Email: info@maineskypixels.com
-- License: #10062506
+- License: #10062506c
