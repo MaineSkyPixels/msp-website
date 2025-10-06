@@ -84,8 +84,8 @@ This website is optimized for Cloudflare Pages deployment.
 
 ## 📄 License
 
-© 2022 - Maine Sky Pixels LLC
-License #0409231
+© 2025 - Maine Sky Pixels LLC
+License #10062506
 
 ## 📞 Contact
 
