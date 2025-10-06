@@ -40,9 +40,13 @@ window.addEventListener('scroll', () => {
 // Contact form handling
 const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
+    // Check for success message in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success') === 'true') {
+        showMessage('Thank you for your message! We will get back to you soon.', 'success');
+    }
+    
     contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
         // Get form data
         const formData = new FormData(this);
         const name = formData.get('name');
@@ -50,34 +54,82 @@ if (contactForm) {
         const phone = formData.get('phone');
         const message = formData.get('message');
         
-        // Simple validation
+        // Client-side validation
         if (!name || !email || !message) {
-            alert('Please fill in all required fields.');
+            e.preventDefault();
+            showMessage('Please fill in all required fields.', 'error');
             return;
         }
         
         // Email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            alert('Please enter a valid email address.');
+            e.preventDefault();
+            showMessage('Please enter a valid email address.', 'error');
             return;
         }
         
-        // Simulate form submission
+        // Set reply-to field
+        this.querySelector('input[name="_replyto"]').value = email;
+        
+        // Show loading state
         const submitBtn = this.querySelector('.submit-btn');
         const originalText = submitBtn.textContent;
         
         submitBtn.textContent = 'Sending...';
         submitBtn.disabled = true;
         
-        // Simulate API call
-        setTimeout(() => {
-            alert('Thank you for your message! We will get back to you soon.');
-            this.reset();
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        }, 2000);
+        // Form will submit to Formspree
+        // Success/error handling is done via URL parameters
     });
+}
+
+// Show message function
+function showMessage(message, type) {
+    // Remove existing messages
+    const existingMessage = document.querySelector('.form-message');
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+    
+    // Create message element
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `form-message ${type}`;
+    messageDiv.textContent = message;
+    
+    // Style the message
+    messageDiv.style.cssText = `
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 10px;
+        text-align: center;
+        font-weight: 500;
+        background: ${type === 'success' ? '#10b981' : '#ef4444'};
+        color: white;
+        animation: slideIn 0.3s ease;
+    `;
+    
+    // Add animation
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Insert message before form
+    contactForm.parentNode.insertBefore(messageDiv, contactForm);
+    
+    // Auto-remove success messages after 5 seconds
+    if (type === 'success') {
+        setTimeout(() => {
+            if (messageDiv.parentNode) {
+                messageDiv.remove();
+            }
+        }, 5000);
+    }
 }
 
 // Intersection Observer for animations

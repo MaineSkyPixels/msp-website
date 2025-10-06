@@ -187,7 +187,7 @@
                     <span>info@maineskypixels.com</span>
                 </div>
             </div>
-            <form class="contact-form">
+            <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
                 <div class="form-group">
                     <input type="text" id="name" name="name" placeholder="Your Name" required>
                 </div>
@@ -200,6 +200,12 @@
                 <div class="form-group">
                     <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
                 </div>
+                <!-- Honeypot field to prevent spam -->
+                <input type="text" name="_gotcha" style="display:none">
+                <!-- Formspree configuration -->
+                <input type="hidden" name="_subject" value="New Contact Form Submission - Maine Sky Pixels">
+                <input type="hidden" name="_replyto" value="">
+                <input type="hidden" name="_next" value="https://maineskypixels.pages.dev/?success=true">
                 <button type="submit" class="submit-btn">Send Message</button>
             </form>
         </div>
