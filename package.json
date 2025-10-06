@@ -1,0 +1,27 @@
+{
+  "name": "maineskypixels-website",
+  "version": "1.0.0",
+  "description": "Maine Sky Pixels LLC - Enterprise Drone Services Website",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'Static site - no build process needed'",
+    "dev": "python -m http.server 8000",
+    "serve": "python -m http.server 8000"
+  },
+  "keywords": [
+    "drone",
+    "services",
+    "lidar",
+    "mapping",
+    "aerial",
+    "photography",
+    "maine"
+  ],
+  "author": "Maine Sky Pixels LLC",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/maineskypixels-website.git"
+  },
+  "homepage": "https://maineskypixels.pages.dev"
+}
